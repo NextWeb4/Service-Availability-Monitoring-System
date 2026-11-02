@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # History Uptime Console
 
 一个零外部依赖的本地自托管可用性监控台。它借鉴 Uptime Kuma 的低摩擦自托管、心跳条带、事件时间线和状态页体验，用 Node.js 内置模块实现，适合直接在 Windows 上运行。
@@ -71,3 +72,6 @@ npm test
 
 部分产品需要先启用健康端点。TLS 检查使用系统信任的证书；允许返回 401/403 的 API 模板会明确显示“可达，需要认证”，该结果只说明端点可达。Vault 封印/未初始化、Airflow 调度器异常、Consul/Nomad 无 leader 等状态会判为异常。
 
+=======
+# Service-Availability-Monitoring-System
+>>>>>>> 6bf966f9487d55b9d600463224bc49e27de95440
