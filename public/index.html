@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>History Uptime Console</title>
+  <link rel="stylesheet" href="/styles.css?v=20261102ui">
+</head>
+<body class="app-shell console-page">
+  <header class="topbar">
+    <div>
+      <h1>History Uptime</h1>
+      <p id="page-updated">等待状态加载</p>
+    </div>
+    <div class="topbar-actions">
+      <label class="refresh-control" title="统一控制服务端默认检查频率和页面数据轮询；单个监控可用改间隔覆盖">
+        全局间隔
+        <select id="refresh-interval">
+          <option value="1">1 秒</option>
+          <option value="5" selected>5 秒</option>
+          <option value="10">10 秒</option>
+          <option value="30">30 秒</option>
+          <option value="60">60 秒</option>
+        </select>
+      </label>
+      <a class="ghost" href="/status"><span data-icon="external-link"></span>状态页</a>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section id="totals" class="totals" aria-label="监控总览"></section>
+    <section class="monitor-workspace" aria-labelledby="workspace-title">
+      <div class="workspace-heading">
+        <div class="workspace-title"><h2 id="workspace-title">监控项目</h2><span id="monitor-result-count" class="muted"></span></div>
+        <div class="workspace-actions">
+          <button id="refresh" class="icon-button" title="立即拉取" aria-label="立即拉取"><span data-icon="refresh-cw"></span></button>
+          <a class="icon-button ghost" href="/api/export" title="导出全部历史" aria-label="导出全部历史"><span data-icon="download"></span></a>
+          <button id="open-import" class="ghost"><span data-icon="upload"></span>导入</button>
+          <button id="open-monitor" class="primary"><span data-icon="plus"></span>新增监控</button>
+        </div>
+      </div>
+      <div class="list-toolbar">
+        <label class="search-field"><span class="sr-only">搜索监控</span><span data-icon="search"></span><input id="monitor-search" type="search" placeholder="搜索名称、地址或类型" autocomplete="off"></label>
+        <label class="filter-field"><span class="sr-only">状态筛选</span><select id="status-filter"><option value="all">全部状态</option><option value="down">异常</option><option value="up">正常</option><option value="paused">已暂停</option><option value="unknown">未知</option></select></label>
+        <label class="filter-field"><span class="sr-only">类型筛选</span><select id="type-filter"><option value="all">全部类型</option></select></label>
+        <label class="filter-field"><span class="sr-only">排序方式</span><select id="monitor-sort"><option value="default">默认排序</option><option value="status">异常优先</option><option value="name">名称排序</option><option value="latency">延迟从高到低</option></select></label>
+        <div class="view-switch" role="group" aria-label="显示方式">
+          <button data-view="list" class="icon-button" aria-label="紧凑列表" title="紧凑列表" aria-pressed="true"><span data-icon="list"></span></button>
+          <button data-view="cards" class="icon-button" aria-label="卡片视图" title="卡片视图" aria-pressed="false"><span data-icon="layout-grid"></span></button>
+        </div>
+      </div>
+      <div id="list-column-head" class="list-column-head" aria-hidden="true"><span>项目 / 目标</span><span>最近心跳</span><span>24h 在线率</span><span>P95</span><span>检查间隔</span><span>操作</span></div>
+      <div class="monitor-viewport" tabindex="0" aria-label="监控列表">
+        <section id="monitors" class="monitor-grid compact-list"></section>
+      </div>
+      <footer class="list-pagination">
+        <span id="page-range" class="muted" aria-live="polite"></span>
+        <div class="pagination-controls">
+          <label class="page-size"><span class="sr-only">每页数量</span><select id="page-size"><option value="10">10 项 / 页</option><option value="25">25 项 / 页</option><option value="50">50 项 / 页</option></select></label>
+          <button id="previous-page" class="icon-button" aria-label="上一页" title="上一页"><span data-icon="chevron-left"></span></button>
+          <span id="page-number" class="page-number"></span>
+          <button id="next-page" class="icon-button" aria-label="下一页" title="下一页"><span data-icon="chevron-right"></span></button>
+        </div>
+      </footer>
+    </section>
+    <details class="timeline-section">
+      <summary>事件时间线 <span id="event-count" class="muted"></span><span data-icon="chevron-down"></span></summary>
+      <ol id="events"></ol>
+    </details>
+  </main>
+
+  <dialog id="monitor-dialog" aria-labelledby="monitor-dialog-title">
+    <div class="dialog-heading"><h2 id="monitor-dialog-title">新增监控</h2><button type="button" class="icon-button" data-close-dialog title="关闭" aria-label="关闭新增监控"><span data-icon="x"></span></button></div>
+    <div class="dialog-body">
+        <form id="monitor-form">
+          <label>名称<input name="name" placeholder="官网 / Redis / 数据库" required></label>
+          <label><span class="field-heading">类型 <small id="monitor-type-count">加载中</small></span>
+            <select id="monitor-type" name="type" disabled>
+              <option value="">正在加载类型...</option>
+            </select>
+          </label>
+          <label>目标<input id="target-input" name="target" placeholder="https://example.com 或 db.internal:5432" required></label>
+          <label data-type-fields="keyword">关键字<input name="keyword" placeholder="页面中需要出现的文本"></label>
+          <label data-type-fields="http_json">JSON 路径<input name="jsonPath" placeholder="status.field，可留空只校验 JSON"></label>
+          <label data-type-fields="regex">正文正则<input name="bodyPattern" placeholder="version.*[0-9]+" required></label>
+          <label data-type-fields="http keyword http_json regex">期望状态码<input name="expectedStatus" type="number" min="100" max="599" value="200"></label>
+          <div class="row" data-type-fields="dns">
+            <label>记录类型
+              <select name="dnsRecordType">
+                <option value="A">A</option><option value="AAAA">AAAA</option><option value="CNAME">CNAME</option>
+                <option value="MX">MX</option><option value="TXT">TXT</option><option value="NS">NS</option><option value="SRV">SRV</option>
+              </select>
+            </label>
+            <label>期望包含<input name="expectedValue" placeholder="可选"></label>
+          </div>
+          <label data-type-fields="http_json">期望包含<input name="expectedValue" placeholder="可选；填写后校验字段值"></label>
+          <label data-type-fields="ssl">证书剩余阈值天数<input name="sslWarnDays" type="number" min="0" max="3650" value="30"></label>
+          <label data-type-fields="snmp">SNMP community<input name="snmpCommunity" placeholder="public"></label>
+          <label data-type-fields="whois">WHOIS 查询内容<input name="expectedValue" placeholder="example.com"></label>
+          <div class="row">
+            <label class="check-inline"><input id="use-global-interval" type="checkbox" checked> 使用全局间隔</label>
+            <label id="individual-interval-field">单独间隔秒<input name="intervalSeconds" type="number" min="1" max="86400" placeholder="使用全局间隔" disabled></label>
+            <label>超时毫秒<input name="requestTimeoutMs" type="number" min="500" max="60000" value="8000"></label>
+          </div>
+          <button class="primary" type="submit">创建并检查</button>
+        </form>
+    </div>
+  </dialog>
+  <dialog id="import-dialog" aria-labelledby="import-dialog-title">
+    <div class="dialog-heading"><h2 id="import-dialog-title">历史导入</h2><button type="button" class="icon-button" data-close-dialog title="关闭" aria-label="关闭历史导入"><span data-icon="x"></span></button></div>
+    <div class="dialog-body">
+        <form id="import-form">
+          <label>JSON 记录<textarea name="records" rows="6" placeholder='[{"name":"官网","type":"http","target":"https://...","time":"2026-08-20T10:00:00Z","status":"up","responseTime":120}]'></textarea></label>
+          <button type="submit">导入历史</button>
+        </form>
+    </div>
+  </dialog>
+  <script src="/icons.js?v=20261102ui"></script>
+  <script src="/monitor-view.js?v=20261102ui"></script>
+  <script src="/app.js?v=20261102ui"></script>
+</body>
+</html>

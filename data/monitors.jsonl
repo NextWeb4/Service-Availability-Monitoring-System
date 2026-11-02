@@ -1,0 +1,3 @@
+{"id":"d07094b1-b6d8-4ed3-b810-7a74595258e6","name":"sss","type":"http","target":"https://baidu.com","intervalSeconds":1,"requestTimeoutMs":8000,"active":true,"createdAt":"2026-08-26T06:17:23.395Z","lastRunAt":"2026-11-01T16:38:04.992Z","expectedStatus":200}
+{"id":"c1833cdc-777d-4119-8a24-00884340ce52","name":"11","type":"ping","target":"10.0.0.1","intervalSeconds":60,"requestTimeoutMs":8000,"active":true,"createdAt":"2026-08-26T10:18:34.574Z","lastRunAt":"2026-11-01T16:37:55.909Z"}
+{"id":"f9162973-00d3-4077-b651-c9144f360713","name":"2","type":"dns","target":"10.0.0.1","intervalSeconds":60,"requestTimeoutMs":8000,"active":true,"createdAt":"2026-08-26T10:19:45.422Z","lastRunAt":"2026-11-01T16:37:55.909Z","dnsRecordType":"A","expectedValue":""}

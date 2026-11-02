@@ -1,0 +1,5 @@
+{
+  "environment_confirmed": true,
+  "confirmation_note": "用户选择2：使用基础 DOCX 兜底继续。此前已安装 .NET 8 SDK，但本轮按用户选择不依赖完整 OpenXML 校验。",
+  "confirmed_at": "2026-11-02T09:58:43+00:00"
+}

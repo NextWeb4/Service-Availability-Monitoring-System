@@ -1,0 +1,12 @@
+{
+  "name": "history-uptime-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small self-hosted uptime and history console inspired by Uptime Kuma",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}

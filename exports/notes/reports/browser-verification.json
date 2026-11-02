@@ -1,0 +1,184 @@
+{
+  "checkedAt": "2026-11-02T00:06:38+08:00",
+  "isolatedBrowserBase": "http://localhost:3211",
+  "catalog": {
+    "monitorTypes": 100,
+    "groups": 9,
+    "generalHttp": 4,
+    "networkAndProtocol": 39,
+    "httpServiceEndpoints": 57
+  },
+  "consoleOneSecond": {
+    "global": "1",
+    "groups": 9,
+    "monitor": "browser-final\n\nHTTP · 期望 200 · http://localhost:3211/api/settings\n\nHTTP 200\n\n正常\n全局间隔 1s\n24h 100.00%\n7d 100.00%\nP95 17ms\n最近 23:49:10\n立即检查\n改间隔\n暂停\n删除",
+    "options": 100,
+    "pollOffsetsMs": [
+      2,
+      1018,
+      2035,
+      3052
+    ],
+    "updates": [
+      "页面更新 23:49:08 · 全局 1s",
+      "页面更新 23:49:09 · 全局 1s",
+      "页面更新 23:49:10 · 全局 1s",
+      "页面更新 23:49:11 · 全局 1s"
+    ],
+    "viewport": {
+      "scrollWidth": 1027,
+      "width": 1042
+    }
+  },
+  "individualOverride": {
+    "cards": "browser-final\n\nHTTP · 期望 200 · http://localhost:3211/api/settings\n\nHTTP 200\n\n正常\n单独间隔 3s\n24h 100.00%\n7d 100.00%\nP95 17ms\n最近 23:52:38\n立即检查\n改间隔\n暂停\n删除",
+    "monitors": [
+      {
+        "expectedValue": "",
+        "followsGlobalInterval": false,
+        "intervalSeconds": 3,
+        "name": "browser-final",
+        "status": "up",
+        "type": "http"
+      }
+    ],
+    "placeholder": "当前全局 1s",
+    "settings": {
+      "globalIntervalSeconds": 1
+    }
+  },
+  "fiveSecondSettings": {
+    "monitors": [
+      {
+        "expectedValue": "",
+        "followsGlobalInterval": false,
+        "intervalSeconds": 3,
+        "name": "browser-final",
+        "status": "up",
+        "type": "http"
+      },
+      {
+        "expectedValue": "1",
+        "followsGlobalInterval": true,
+        "intervalSeconds": 5,
+        "name": "json-browser-final",
+        "status": "down",
+        "type": "http_json"
+      }
+    ],
+    "pollOffsetsMs": [],
+    "settings": {
+      "globalIntervalSeconds": 5
+    },
+    "whoisFormValues": {
+      "expectedValue": "example.com",
+      "name": "",
+      "requestTimeoutMs": "8000",
+      "target": "",
+      "type": "whois"
+    }
+  },
+  "consoleFiveSecond": {
+    "interval": "5",
+    "pollOffsetsMs": [
+      3993,
+      9005
+    ],
+    "updates": [
+      "页面更新 23:58:49 · 全局 5s",
+      "页面更新 23:58:54 · 全局 5s"
+    ]
+  },
+  "consoleMobile": {
+    "clippedControls": [],
+    "documentWidth": 375,
+    "groups": 9,
+    "monitors": [
+      {
+        "expectedValue": "",
+        "intervalSeconds": 3,
+        "name": "browser-final",
+        "status": "up",
+        "type": "http"
+      },
+      {
+        "expectedValue": "1",
+        "intervalSeconds": 1,
+        "name": "json-browser-final",
+        "status": "up",
+        "type": "http_json"
+      }
+    ],
+    "options": 100,
+    "viewport": 390
+  },
+  "statusOneSecond": {
+    "documentWidth": 390,
+    "interval": "1 秒",
+    "updates": [
+      "更新于 2026/11/2 00:04:58",
+      "更新于 2026/11/2 00:04:59",
+      "更新于 2026/11/2 00:05:00"
+    ],
+    "viewport": 390
+  },
+  "browserErrors": [],
+  "liveService": {
+    "/": {
+      "status": 200
+    },
+    "/status": {
+      "status": 200
+    },
+    "/api/meta": {
+      "status": 200,
+      "types": 100,
+      "groups": 9
+    },
+    "/api/state": {
+      "status": 200,
+      "settings": {
+        "globalIntervalSeconds": 1
+      },
+      "monitors": [
+        {
+          "name": "sss",
+          "type": "http",
+          "intervalSeconds": 1,
+          "followsGlobalInterval": false
+        },
+        {
+          "name": "11",
+          "type": "ping",
+          "intervalSeconds": 60,
+          "followsGlobalInterval": false
+        },
+        {
+          "name": "2",
+          "type": "dns",
+          "intervalSeconds": 60,
+          "followsGlobalInterval": false
+        }
+      ]
+    }
+  },
+  "tests": {
+    "command": "npm test",
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "source": "Completed full-suite run during implementation; no runtime changes after that run.",
+    "schedulerStartGapsMs": [
+      1010,
+      990,
+      1027
+    ]
+  },
+  "screenshots": [
+    "console-desktop.png",
+    "console-mobile.png",
+    "status-mobile.png"
+  ],
+  "scope": "Local fixtures and browser interaction. Not verification against 100 independent production installations."
+}

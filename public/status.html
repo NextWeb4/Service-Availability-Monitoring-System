@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service Status</title>
+  <link rel="stylesheet" href="/styles.css?v=20261102ui">
+</head>
+<body class="app-shell status-page">
+  <header class="topbar">
+    <div>
+      <h1>Service Status</h1>
+      <p id="updated-at">加载中</p>
+    </div>
+    <div class="topbar-actions">
+      <div class="refresh-control">
+        全局间隔 <span id="status-interval">1 秒</span>
+      </div>
+      <a class="ghost" href="/"><span data-icon="arrow-left" aria-hidden="true"></span>控制台</a>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section id="summary" class="totals status-summary" aria-label="监控概览"></section>
+    <section class="monitor-workspace" aria-labelledby="status-workspace-title">
+      <div class="workspace-heading">
+        <div class="workspace-title">
+          <h2 id="status-workspace-title">服务状态</h2>
+          <span id="service-count" class="muted">加载中</span>
+        </div>
+      </div>
+      <div class="list-toolbar">
+        <label class="search-field">
+          <span data-icon="search" aria-hidden="true"></span>
+          <input id="monitor-search" type="search" placeholder="搜索名称、地址或类型" aria-label="搜索监控" autocomplete="off">
+        </label>
+        <label class="filter-field">
+          <span class="sr-only">状态筛选</span>
+          <select id="status-filter">
+            <option value="all">全部状态</option>
+            <option value="up">正常</option>
+            <option value="down">异常</option>
+            <option value="paused">已暂停</option>
+            <option value="unknown">未知</option>
+          </select>
+        </label>
+        <label class="filter-field">
+          <span class="sr-only">类型筛选</span>
+          <select id="type-filter">
+            <option value="all">全部类型</option>
+          </select>
+        </label>
+        <label class="filter-field">
+          <span class="sr-only">排序方式</span>
+          <select id="sort-order">
+            <option value="default">默认顺序</option>
+            <option value="name">名称</option>
+            <option value="status">异常优先</option>
+            <option value="latency">延迟从高到低</option>
+          </select>
+        </label>
+        <div class="view-switch" role="group" aria-label="显示方式">
+          <button class="icon-button" type="button" data-view="list" aria-pressed="true" aria-label="列表视图" title="列表视图" aria-controls="services"><span data-icon="list" aria-hidden="true"></span></button>
+          <button class="icon-button" type="button" data-view="cards" aria-pressed="false" aria-label="卡片视图" title="卡片视图" aria-controls="services"><span data-icon="layout-grid" aria-hidden="true"></span></button>
+        </div>
+      </div>
+      <div id="list-column-head" class="list-column-head" aria-hidden="true"><span>项目 / 目标</span><span>最近心跳</span><span>24h 在线率</span><span>最新延迟</span><span>检查间隔</span><span>详情</span></div>
+      <div class="monitor-viewport" tabindex="0" role="region" aria-label="服务状态列表">
+        <div id="services" class="monitor-grid compact-list" aria-busy="true">
+          <p class="empty-state">正在加载监控项。</p>
+        </div>
+      </div>
+      <footer class="list-pagination">
+        <span id="result-range" class="muted" role="status" aria-live="polite" aria-atomic="true">加载中</span>
+        <div class="pagination-controls">
+          <label class="page-size">
+            <span class="sr-only">每页数量</span>
+            <select id="page-size">
+              <option value="10">10 项 / 页</option>
+              <option value="25" selected>25 项 / 页</option>
+              <option value="50">50 项 / 页</option>
+            </select>
+          </label>
+          <button id="previous-page" class="icon-button" type="button" aria-label="上一页" title="上一页" aria-controls="services" disabled><span data-icon="chevron-left" aria-hidden="true"></span></button>
+          <span id="page-indicator" class="page-number">1 / 1</span>
+          <button id="next-page" class="icon-button" type="button" aria-label="下一页" title="下一页" aria-controls="services" disabled><span data-icon="chevron-right" aria-hidden="true"></span></button>
+        </div>
+      </footer>
+    </section>
+    <details class="timeline-section">
+      <summary>事件时间线 <span id="event-count" class="muted">0</span><span data-icon="chevron-down" aria-hidden="true"></span></summary>
+      <ol id="events"><li class="empty">正在加载事件。</li></ol>
+    </details>
+  </main>
+  <script src="/icons.js?v=20261102ui"></script>
+  <script src="/monitor-view.js?v=20261102ui"></script>
+  <script src="/status.js?v=20261102ui"></script>
+</body>
+</html>

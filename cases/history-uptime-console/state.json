@@ -1,0 +1,30 @@
+{
+  "slug": "history-uptime-console",
+  "status": "in_progress",
+  "updatedAt": "2026-11-02T00:06:38+08:00",
+  "objective": "完成本地可用性监控台，将类型扩展至100类，并统一全局刷新/检查间隔与单项覆盖。",
+  "result": {
+    "appUrl": "http://localhost:3000",
+    "statusPageUrl": "http://localhost:3000/status",
+    "monitorTypes": 100,
+    "typeGroups": 9,
+    "globalIntervalSeconds": 1,
+    "preservedOriginalMonitors": 3,
+    "report": "exports/notes/reports/history-uptime-system-report.md"
+  },
+  "evidence": {
+    "syntaxChecks": "5 runtime JavaScript files passed node --check",
+    "tests": "npm test: 18 passed, 0 failed, 0 skipped",
+    "schedulerStartGapsMs": [
+      1010,
+      990,
+      1027
+    ],
+    "browser": "100 options / 9 groups; 1s and 5s automatic polling; individual 3s unaffected; JSON creation and expected value verified; desktop/mobile screenshots inspected; no JS errors",
+    "liveService": "/ 200; /status 200; /api/meta 200 (100 types / 9 groups); /api/state 200 (3 original monitors)",
+    "details": "exports/notes/reports/browser-verification.json"
+  },
+  "verificationLimit": "Local fixtures and browser checks; not 100 independent production installations.",
+  "next_steps": ["完成管理台与状态页分页布局", "使用237项隔离数据验证搜索、分页、自动刷新与手机布局"],
+  "nextSteps": ["完成管理台与状态页分页布局", "使用237项隔离数据验证搜索、分页、自动刷新与手机布局"]
+}
